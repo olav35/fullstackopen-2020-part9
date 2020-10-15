@@ -11,4 +11,14 @@ const calculateBmi = (height: number, weight: number): string => {
   }
 }
 
-console.log(calculateBmi(190, 60))
+const exit_with_usage = () => {
+  console.error('npm run calculateBmi height weight')
+  process.exit(1)
+}
+const height = Number(process.argv[2])
+const weight = Number(process.argv[3])
+if([height, weight].includes(NaN)) {
+  exit_with_usage()
+}
+
+console.log(calculateBmi(height, weight))
