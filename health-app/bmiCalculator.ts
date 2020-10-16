@@ -12,7 +12,7 @@ const calculateBmi = (height: number, weight: number): string => {
 }
 
 const exit_with_usage = () => {
-  console.error('npm run calculateBmi height weight')
+  console.error('usage: npm run calculateBmi height weight')
   process.exit(1)
 }
 const height = Number(process.argv[2])
