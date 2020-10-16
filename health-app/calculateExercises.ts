@@ -42,16 +42,4 @@ const calculateExercises = (exerciseHours: Array<number>, target: number): Repor
   };
 };
 
-const exit_with_usage = () => {
-  console.error('usage: npm run calculateExercises target hours ...');
-  process.exit(1);
-};
-
-const target = Number(process.argv[2]);
-const exerciseHours = process.argv.slice(3).map(hours => Number(hours));
-
-if([target, ...exerciseHours].includes(NaN) || exerciseHours.length === 0) {
-  exit_with_usage();
-}
-
-console.log(calculateExercises(exerciseHours, target));
+export default calculateExercises;
