@@ -42,4 +42,16 @@ const calculateExercises = (exerciseHours: Array<number>, target: number): Repor
   }
 }
 
-console.log(calculateExercises([3, 0, 2, 4.5, 0, 3, 1], 2))
+const exit_with_usage = () => {
+  console.error('usage: npm run calculateExercises target hours ...')
+  process.exit(1)
+}
+
+const target = Number(process.argv[2])
+const exerciseHours = process.argv.slice(3).map(hours => Number(hours))
+
+if([target, ...exerciseHours].includes(NaN) || exerciseHours.length === 0) {
+  exit_with_usage()
+}
+
+console.log(calculateExercises(exerciseHours, target))
