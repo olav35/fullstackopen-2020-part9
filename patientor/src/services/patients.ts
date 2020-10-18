@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 interface Patient {
   id: string,
   name: string,
@@ -8,6 +10,7 @@ interface Patient {
 }
 
 type NonSensitivePatient = Omit<Patient, 'ssn'>;
+type NewPatient = Omit<Patient, 'id'>;
 
 const patients: Patient[] = [
   {
@@ -56,3 +59,12 @@ export const getNonSensitivePatients = (): NonSensitivePatient[] => (
     id, name, dateOfBirth, gender, occupation
   }))
 );
+export const addPatient = (entry: NewPatient): Patient => {
+  const newPatientEntry: Patient = {
+    ...entry,
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    id: uuidv4() as string
+  };
+  patients.push(newPatientEntry);
+  return newPatientEntry;
+};
