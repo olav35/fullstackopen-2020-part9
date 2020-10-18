@@ -1,5 +1,5 @@
 import express from 'express';
-import diagnonses from '../../data/diagnoses';
+import diagnonses from '../services/diagnoses';
 const router = express.Router();
 
 router.get('/', (_req, res) => {
