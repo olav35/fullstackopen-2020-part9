@@ -1,5 +1,33 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { CoursePart } from './types';
+
+const Header: React.FC<{courseName: string}> = (props) => {
+  return (
+    <h1>{props.courseName}</h1>
+  )
+}
+
+const Content: React.FC<{courseParts: CoursePart[]}> = (props) => {
+  return (
+    <div>
+      {
+        props.courseParts.map((coursePart, index) => (
+          <p key={index}>{coursePart.name} {coursePart.exerciseCount}</p>
+        ))
+      }
+    </div>
+  )
+}
+
+const Total: React.FC<{courseParts: CoursePart[]}> = (props) => {
+  return (
+    <p>
+      Number of exercises{' '}
+      {props.courseParts.reduce((carry, part) => carry + part.exerciseCount, 0)}
+    </p>
+  )
+}
 
 const App: React.FC = () => {
   const courseName = 'Half Stack application development'
@@ -20,20 +48,9 @@ const App: React.FC = () => {
 
   return (
     <div>
-      <h1>{courseName}</h1>
-      <p>
-        {courseParts[0].name} {courseParts[0].exerciseCount} 
-      </p>
-      <p>
-        {courseParts[1].name} {courseParts[1].exerciseCount} 
-      </p>
-      <p>
-        {courseParts[2].name} {courseParts[2].exerciseCount} 
-      </p>
-      <p>
-        Number of exercises{' '}
-        {courseParts.reduce((carry, part) => carry + part.exerciseCount, 0)}
-      </p>
+      <Header courseName={courseName}/>
+      <Content courseParts={courseParts}/>
+      <Total courseParts={courseParts}/>
     </div>
   )
 }
