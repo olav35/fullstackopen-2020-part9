@@ -1,4 +1,5 @@
 import { Patient } from "../src/types";
+import { toNewPatient } from "../src/utils";
 
 const data = [
   {
@@ -41,9 +42,10 @@ const data = [
   }
 ];
 
-// This is needed when we turn gender field into an enum
 const patients: Patient[] = data.map(obj => {
-  return obj;
+  const object = toNewPatient(obj) as Patient;
+  object.id = obj.id;
+  return object;
 });
 
 export default patients;
