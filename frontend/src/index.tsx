@@ -44,6 +44,15 @@ const Part: React.FC<{coursePart: CoursePart}> = (props) => {
           <br/>
         </div>
       )
+    case 'Exploring Emacs':
+      return (
+        <div>
+          <b>{props.coursePart.name}</b> - {props.coursePart.exerciseCount}
+          <p>{props.coursePart.description}</p>
+          written by {props.coursePart.author}
+          <br/>
+        </div>
+      )
     default:
       return assertNever(props.coursePart)
   }
@@ -89,6 +98,12 @@ const App: React.FC = () => {
       exerciseCount: 14,
       description: "Confusing description",
       exerciseSubmissionLink: "https://fake-exercise-submit.made-up-url.dev"
+    },
+    {
+      name: 'Exploring Emacs',
+      exerciseCount: 0,
+      description: 'The bestest emacs tutorial',
+      author: 'Olav Fosse'
     }
   ]
 

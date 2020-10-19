@@ -21,4 +21,9 @@ interface CoursePartThree extends CoursePartBaseWithDescription {
   exerciseSubmissionLink: string;
 }
 
-export type CoursePart = CoursePartOne | CoursePartTwo | CoursePartThree;
+interface CoursePartFour extends CoursePartBaseWithDescription {
+  name: 'Exploring Emacs';
+  author: 'Olav Fosse';
+}
+
+export type CoursePart = CoursePartOne | CoursePartTwo | CoursePartThree | CoursePartFour;
