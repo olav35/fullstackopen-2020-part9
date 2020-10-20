@@ -1,5 +1,5 @@
 import express from 'express';
-import { getNonSensitivePatients, addPatient } from '../services/patients';
+import { getNonSensitivePatients, addPatient, getPatientByID } from '../services/patients';
 import { toNewPatient } from '../utils';
 
 const router = express.Router();
@@ -17,6 +17,14 @@ router.post('/', (req, res) => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     res.status(400).send(error.message);
   }
+});
+interface Request {
+  params: {
+    id: string
+  }
+}
+router.get('/:id', (req: Request, res) => {
+  res.send(getPatientByID(req.params.id));
 });
 
 export default router;
