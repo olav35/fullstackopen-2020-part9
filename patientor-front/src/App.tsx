@@ -37,7 +37,8 @@ const App: React.FC = () => {
           </Button>
           <Divider hidden />
           <Switch>
-            <Route path="/" render={() => <PatientListPage />} />
+            <Route path="/patients/:id" render={() => <div>patients</div>} />
+            <Route path="/"   render={() => <PatientListPage />} />
           </Switch>
         </Container>
       </Router>
