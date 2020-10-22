@@ -24,7 +24,7 @@ const PatientPage: React.FC = () => {
       }
     };
     fetchPatient();
-  }, [dispatch]);
+  }, [dispatch, id, state.patients]);
 
   return state.patients[id] ? (
     <div>
