@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { useStateValue } from '../state';
 // import { Entry } from '../types';
 import { apiBaseUrl } from "../constants";
+import { updatePatient } from '../state/reducer';
 
 const PatientPage: React.FC = () => {
   const { id } = useParams<{ id: string}>();
@@ -17,10 +18,7 @@ const PatientPage: React.FC = () => {
     const fetchPatient = async () => {
       try {
         const { data: patient } = await axios.get(`${apiBaseUrl}/patients/${id}`);
-        dispatch({
-          type: 'UPDATE_PATIENT',
-          payload: patient
-        });
+        dispatch(updatePatient(patient));
       } catch (error) {
         console.error(error.message);
       }
