@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useStateValue } from '../state';
-// import { Entry } from '../types';
+import { Entry } from '../types';
 import { apiBaseUrl } from "../constants";
 import { updatePatient } from '../state/reducer';
 
@@ -51,9 +51,24 @@ const PatientPage: React.FC = () => {
       }
       <h3>Entries</h3>
       {
+	/* date, description and diagnose  */
         state.patients[id].entries ? (() => {
-          // const entries = state.patients[id].entries as Entry[];
-          return null; // entries is just an empty list at the time, but we'll need it later
+          const entries = state.patients[id].entries as Entry[];
+	  console.log(entries)
+	  return entries.map(entry => (
+	    <div>
+	      <span>{entry.date} {entry.description}</span>
+	      {
+		entry.diagnosisCodes ? (
+		  <ul>
+		    {
+		    entry.diagnosisCodes.map(code => (<li>{code}</li>))
+		    }
+		  </ul>
+		) : null
+	      }
+	    </div>
+	  ))
         })() : (() => {
           return <p>loading entries</p>;
         })()
