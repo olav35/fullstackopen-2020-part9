@@ -5,6 +5,7 @@ import { useStateValue } from '../state';
 import { Entry } from '../types';
 import { apiBaseUrl } from "../constants";
 import { updatePatient } from '../state/reducer';
+import { setDiagnosises } from '../state/reducer';
 
 const PatientPage: React.FC = () => {
   const { id } = useParams<{ id: string}>();
@@ -24,6 +25,16 @@ const PatientPage: React.FC = () => {
       }
     };
     fetchPatient();
+
+    const fetchDiagnosises = async () => {
+      try {
+	const { data: diagnosises } = await axios.get(`${apiBaseUrl}/diagnoses`)
+	dispatch(setDiagnosises(diagnosises))
+      } catch(error) {
+	console.error(error.message)
+      }
+    }
+    fetchDiagnosises()
   }, [dispatch, id, state.patients]);
 
   return state.patients[id] ? (
@@ -38,7 +49,6 @@ const PatientPage: React.FC = () => {
         occupation: {state.patients[id].occupation}
       </p>
       {
-        // optional field
         state.patients[id].ssn && (
           <p>ssn: {state.patients[id].ssn}</p>
         )
@@ -62,7 +72,18 @@ const PatientPage: React.FC = () => {
 		entry.diagnosisCodes ? (
 		  <ul>
 		    {
-		    entry.diagnosisCodes.map(code => (<li>{code}</li>))
+		      entry.diagnosisCodes.map(code => (
+			<li>
+			  {
+			    code
+			  }
+			  {
+			    (() => {
+			      const d = state.diagnosises.find(d => d.code === code)
+			      return d ? ' '+d.name : null
+			    })()
+			  }
+			</li>))
 		    }
 		  </ul>
 		) : null
