@@ -19,3 +19,5 @@ export const addPatient = (entry: NewPatient): Patient => {
 export const getPatientByID = (id: string): Patient | undefined => {
   return getPatients().find(patient => patient.id === id);
 };
+
+export const addEntry = (_patient: any, _newEntry: any) => {}; // TODO implemenet

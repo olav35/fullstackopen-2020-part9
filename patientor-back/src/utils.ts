@@ -89,3 +89,68 @@ export const toNewPatient = (object: any): NewPatient => {
     entries: []
   };
 };
+
+const parseDescription = () => (description: any): string => {
+  if(!description || !isString(description)) {
+    throw new Error('Incorrect or missing description: ' + description);
+  }
+
+  return description;
+};
+
+const parseDate = (date: any): string => {
+  if(!(isString(date) && isString(date))) {
+    // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+    throw new Error('Incorrect or missing date: ' + date);
+  }
+
+  return date;
+};
+
+const parseSpecialist = () => (specialist: any): string => {
+  if(!specialist || !isSpecialist(specialist)) {
+    throw new Error('Incorrect or missing specialist: ' + specialist);
+  }
+
+  return specialist;
+};
+
+const parseDiagnosisCodes = () => (diagnosisCodes: any): string => {
+  if(!diagnosisCodes || !isDiagnosisCodes(diagnosisCodes)) {
+    throw new Error('Incorrect or missing diagnosis scodes: ' + diagnosisCodes);
+  }
+
+  return diagnosisCodes;
+};
+
+export const toNewEntry = (object: any): NewEntry => {
+  // Base fields
+  let description = parseDescription(object.description);
+  let date = parseDate(object.date);
+  let specialist = parseSpecialist(object.specialist);
+  let diagnosisCodes;
+  if(object.diagnosisCodes) {
+    diagnosisCodes = parseDiagnosisCodes(object.diagnosisCodes);
+  }
+
+
+  // Type specific fields
+  let type = parseType(object.type);
+  let typeFields = {}
+
+  switch(type) {
+    case 'HealthCheck':
+      typeFields.healthCheckRating = parseHealthCheckRating(object.parseHealthCheckRating);
+      break;
+    default:
+      throw new Error('Unsupported type');
+  }
+
+  return {
+    description,
+    date,
+    specialist,
+    diagnosisCodes,
+    ...typeFields
+  }
+}
